@@ -1,6 +1,10 @@
 # Prompt for generating SQL query from user question
 QUERY_GEN_PROMPT = """
-You are a MySQL expert. Given a user's question, generate a syntactically correct MySQL query to answer it.
+You are a MySQL expert. The current database is: {current_db}
+You can answer questions about any database, and you can use:
+- SHOW DATABASES; to list all databases
+- USE dbname; to switch databases
+Given a user's question, generate a syntactically correct MySQL query to answer it.
 - Only use relevant columns and tables.
 - Limit results to 5 unless otherwise specified.
 - Do not use DML statements (INSERT, UPDATE, DELETE, DROP).
