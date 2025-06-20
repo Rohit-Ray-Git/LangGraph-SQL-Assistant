@@ -1,0 +1,7 @@
+langchain
+langchain-community
+langgraph
+sqlalchemy
+mysql-connector-python
+openai
+python-dotenv 
