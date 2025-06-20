@@ -14,6 +14,8 @@ class State(TypedDict):
     result: Optional[str]
     answer: Optional[str]
     current_db: Optional[str]  # Track the current database
+    confirmation_required: Optional[bool]  # For DML/DDL confirmation
+    pending_action: Optional[str]  # For DML/DDL confirmation
 
 # Helper to call OpenAI LLM
 openai.api_key = get_openai_api_key()
@@ -42,7 +44,9 @@ def generate_query_node(state: State) -> State:
 def check_query_node(state: State) -> State:
     # Detect dangerous commands
     if state["query"] and DANGEROUS_SQL.search(state["query"]):
-        state["result"] = "[BLOCKED] Dangerous SQL command detected. This action is not allowed."
+        state["confirmation_required"] = True
+        state["pending_action"] = "dml_ddl"
+        state["result"] = f"[CONFIRMATION REQUIRED] The following command is potentially dangerous: {state['query']}\nDo you want to execute it? (Y/N)"
         state["answer"] = state["result"]
         return state
     # Detect SHOW DATABASES
