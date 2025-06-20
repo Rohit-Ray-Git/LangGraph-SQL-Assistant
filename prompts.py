@@ -22,7 +22,11 @@ Query: {query}
 
 # Prompt for formatting the final answer
 FINAL_ANSWER_PROMPT = """
-Given the query result below, write a clear and concise answer for the user in natural language.
+Given the query result below, write a clear, concise, and layman's answer for the user.
+- Do NOT give SQL instructions, code, or syntax advice.
+- If the result is a list, summarize it in plain English.
+- If the result is an error, explain it simply and suggest what the user can do next.
+- Always answer as if you are speaking to a non-technical user.
 
 Result: {result}
 """ 

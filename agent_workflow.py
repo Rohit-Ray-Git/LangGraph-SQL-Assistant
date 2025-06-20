@@ -50,27 +50,25 @@ def check_query_node(state: State) -> State:
         state["answer"] = state["result"]
         return state
     # Detect SHOW DATABASES
-    if state["query"] and re.match(r"^\\s*show\\s+databases", state["query"], re.IGNORECASE):
+    if state["query"] and re.match(r"^\s*show\s+databases", state["query"], re.IGNORECASE):
         db = get_db_for_database(state["current_db"] or "information_schema")
         dbs = list_databases(db)
         state["result"] = dbs
-        state["answer"] = f"Databases: {', '.join(dbs) if isinstance(dbs, list) else dbs}"
+        # Do not set state["answer"] here; let format_answer_node handle it
         return state
     # Detect USE dbname
-    m = re.match(r"^\\s*use\\s+([a-zA-Z0-9_]+)", state["query"] or "", re.IGNORECASE)
+    m = re.match(r"^\s*use\s+([a-zA-Z0-9_]+)", state["query"] or "", re.IGNORECASE)
     if m:
         new_db = m.group(1)
-        # Try to switch database
         try:
             db = get_db_for_database(new_db)
-            # Test connection
             _ = db.get_usable_table_names()
             state["current_db"] = new_db
             state["result"] = f"Switched to database: {new_db}"
-            state["answer"] = state["result"]
+            # Do not set state["answer"] here; let format_answer_node handle it
         except Exception as e:
             state["result"] = f"Error switching database: {e}"
-            state["answer"] = state["result"]
+            # Do not set state["answer"] here; let format_answer_node handle it
         return state
     # Otherwise, normal check
     prompt = QUERY_CHECK_PROMPT.format(query=state["query"])

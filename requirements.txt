@@ -4,4 +4,5 @@ langgraph
 sqlalchemy
 mysql-connector-python
 openai
-python-dotenv 
+python-dotenv
+streamlit 
