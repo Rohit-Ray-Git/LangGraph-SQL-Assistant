@@ -5,7 +5,7 @@ import openai
 from prompts import QUERY_GEN_PROMPT, QUERY_CHECK_PROMPT, FINAL_ANSWER_PROMPT
 from db_config import get_openai_api_key
 from typing import TypedDict, Optional
-from tools import safe_query, list_databases, get_db_for_database
+from tools import safe_query, list_databases, get_db_for_database, list_tables
 import re
 
 class State(TypedDict):
@@ -54,6 +54,13 @@ def check_query_node(state: State) -> State:
         db = get_db_for_database(state["current_db"] or "information_schema")
         dbs = list_databases(db)
         state["result"] = dbs
+        # Do not set state["answer"] here; let format_answer_node handle it
+        return state
+    # Detect SHOW TABLES
+    if state["query"] and re.match(r"^\s*show\s+tables", state["query"], re.IGNORECASE):
+        db = get_db_for_database(state["current_db"] or "information_schema")
+        tables = list_tables(db)
+        state["result"] = tables
         # Do not set state["answer"] here; let format_answer_node handle it
         return state
     # Detect USE dbname

@@ -36,3 +36,11 @@ This query counts only the user-defined tables in the 'new_db' database, excludi
 [2025-06-21T00:18:13.144833] Answer: It looks like there was an error with a SQL command you were trying to run. This error happened because there's a mistake in how the command is written. The system is indicating that the part of your command after the actual query is causing the issue.
 
 In this case, the command "SHOW DATABASES;" is correct and should work, but make sure you are only entering that command without any extra text. You might want to try running just that command without adding anything else. If you need further assistance, please let me know!
+[2025-06-21T00:23:39.573705] Query: How many tables?
+[2025-06-21T00:23:39.582143] Answer: It looks like there was a misunderstanding when you tried to run your SQL query. The error message indicates that there's a syntax issue, but the actual SQL query you provided seems to be correct. 
+
+To resolve this, you should double-check that you are only using the query itself without any extra text or comments around it. Make sure to copy only the SQL statement and try running it again. If you need further help, feel free to ask!
+[2025-06-21T00:29:24.546335] Query: How many tables?
+[2025-06-21T00:29:24.549715] Answer: It seems that there's a mistake in the way your query is written, which is causing an error. This can happen for various reasons, like a typo or incorrect formatting. 
+
+To resolve this, I recommend double-checking your query for any small errors. If you're confident that everything looks correct, consider looking at the documentation or seeking help on how to format your SQL commands properly. You can also try running simpler queries to ensure your setup is working correctly.

@@ -25,7 +25,7 @@ def list_databases(db: SQLDatabase):
         result = db.run("SHOW DATABASES;")
         return [row[0] for row in result]
     except Exception as e:
-        return f"Error: {e}"
+        return [f"Error: {e}"]
 
 # Create a new SQLDatabase instance for a given database name
 def get_db_for_database(dbname: str):
